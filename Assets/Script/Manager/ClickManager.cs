@@ -12,7 +12,9 @@ public class ClickManager : MonoBehaviour
     int layerMask;
 
     [SerializeField] GameObject errorObj = null;
-    [SerializeField] Transform can = null;
+    [SerializeField] GameObject okObj = null;
+
+    [SerializeField] Transform singPerent = null;
 
     private void Start()
     {
@@ -33,22 +35,34 @@ public class ClickManager : MonoBehaviour
             {
                 if (hit.transform.TryGetComponent<Click_Interactable>(out Click_Interactable obj))
                 {
+                    Debug.Log("들어간놈 찾았다");
+                    if (!hit.transform.GetComponent<Wromg_Image>().check)
+                    {
+                        Test(okObj, hit.transform.position);
+                    }
                     obj.Interact();
                 }
+                else if(hit.transform.gameObject.name == "BackGround" || hit.transform.gameObject.name == "Image_Center")
+                {
+                    Debug.Log("그림이 없어요");
+                }
+                else
+                {
+                    GameObject test = Test(errorObj, mousePos);
+                    Destroy(test, 1f);
+                }    
+
             }
             else
             {
-                GameObject test = Test(errorObj, mousePos);
-                Destroy(test, 1f);
             }
         }
     }
 
-    private GameObject Test(GameObject obj, Vector3 _mousePos)
+    private GameObject Test(GameObject obj, Vector3 pos)
     {
-        GameObject test = Instantiate(obj, can);
-        //test.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
-        test.transform.position = cam.WorldToScreenPoint(mousePos);
+        GameObject test = Instantiate(obj, singPerent);
+        test.transform.position = new Vector3(pos.x, pos.y, 0);
 
         test.SetActive(true);
 
