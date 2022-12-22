@@ -1211,6 +1211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 0}
   clickManager: {fileID: 0}
+  maxTime: 0
 --- !u!1 &1933692345
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,3 +1256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ef8ae858fb78b14b8ff05d9142e09d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverUi: {fileID: 0}
+  timerText: {fileID: 0}
+  scoreText: {fileID: 0}
