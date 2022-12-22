@@ -33,15 +33,19 @@ public class CreatePicture : MonoBehaviour
         GenerateObject();
     }
 
+    int a;
+
     private void GenerateObject()
     {
         for (int i = 0; i < mapHight; i++)
         {
             for (int j = 0; j < mapWidth; j++)
             {
+                a++;
                 Wromg_Image obj = Instantiate<Wromg_Image>(defalt_obj,this.transform);
                 obj.transform.localPosition = 
                     new Vector3((j* objectInertval_X) + objectPivot_X, (i* objectInertval_Y) +objectPivot_Y,0f);
+                obj.name = obj.name + a.ToString();
                 wromg_Images.Add(obj);
             }
         }
@@ -57,7 +61,7 @@ public class CreatePicture : MonoBehaviour
             randomIndex[i] = select;
 
             //비활성화 되는 함수 실행
-            wromg_Images[select].gameObject.SetActive(false);
+            wromg_Images[select].Off_Image();
 
             wromg_Images.Remove(wromg_Images[select]);
         }
@@ -80,7 +84,7 @@ public class CreatePicture : MonoBehaviour
             int select = Random.Range(0, wromg_Images.Count);
 
             //틀린그림 변환 함수 실행
-            wromg_Images[select].gameObject.GetComponent<SpriteRenderer>().material.color = Color.red;
+            wromg_Images[select].On_Change_Image();
 
             wromg_Images.Remove(wromg_Images[select]);
         }

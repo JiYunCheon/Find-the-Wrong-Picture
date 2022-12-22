@@ -16,16 +16,18 @@ public class Wromg_Image : MonoBehaviour, Click_Interactable
     private void Awake()
     {
         sp = GetComponent<SpriteRenderer>();
+       
+        Init();
     }
 
     private void Start()
     {
-        randomIdx = Random.Range(0, default_Sprite.Length);
-        Init();
+        
     }
 
     private void Init()
     {
+        randomIdx = Random.Range(0, default_Sprite.Length);
         sp.sprite = default_Sprite[randomIdx];
     }
 
@@ -38,7 +40,10 @@ public class Wromg_Image : MonoBehaviour, Click_Interactable
     public void On_Change_Image()
     {
         randomIdx = Random.Range(0, wromg_Sprite.Length);
+        Debug.Log(wromg_Sprite[randomIdx].name);
         sp.sprite = wromg_Sprite[randomIdx];
+        Debug.Log(sp.sprite.name);
+
         this.gameObject.layer = 9;
     }
 
