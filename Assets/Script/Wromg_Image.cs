@@ -4,45 +4,42 @@ using UnityEngine;
 
 public class Wromg_Image : MonoBehaviour, Click_Interactable
 {
-    public bool check { get; set; }
-    private bool background = false;
-
-    SpriteRenderer sp = null;
+    [Header("========Sprite Box========")]
     [SerializeField] private Sprite[] default_Sprite;
     [SerializeField] private Sprite[] wromg_Sprite;
 
-    int randomIdx = 0;
+    private SpriteRenderer mySpritRenderer = null;
+    private BoxCollider2D myCollider = null;
+    
+    public bool check { get; set; }
+
+    private int randomIdx = 0;
+
+    [HideInInspector] public CreatePicture answerPiture = null;
 
     private void Awake()
     {
-        sp = GetComponent<SpriteRenderer>();
-       
         Init();
-    }
-
-    private void Start()
-    {
-        
     }
 
     private void Init()
     {
+        mySpritRenderer = GetComponent<SpriteRenderer>();
         randomIdx = Random.Range(0, default_Sprite.Length);
-        sp.sprite = default_Sprite[randomIdx];
+        mySpritRenderer.sprite = default_Sprite[randomIdx];
     }
 
     public void Interact()
     {
-        Debug.Log("실행");
-        check = true;
+        ComparePicture(this);
     }
 
     public void On_Change_Image()
     {
+        myCollider = gameObject.AddComponent(typeof(BoxCollider2D))as BoxCollider2D;
+
         randomIdx = Random.Range(0, wromg_Sprite.Length);
-        Debug.Log(wromg_Sprite[randomIdx].name);
-        sp.sprite = wromg_Sprite[randomIdx];
-        Debug.Log(sp.sprite.name);
+        mySpritRenderer.sprite = wromg_Sprite[randomIdx];
 
         this.gameObject.layer = 9;
     }
@@ -51,4 +48,43 @@ public class Wromg_Image : MonoBehaviour, Click_Interactable
     {
         this.gameObject.SetActive(false);
     }
+
+    private void ComparePicture(Wromg_Image obj)
+    {
+        if (check) return;
+
+        for (int i = 0; i < GameManager.Inst.GetSpawnManager.wrongBoard.check_ImageList.Count; i++)
+        {
+            if (GameManager.Inst.GetSpawnManager.wrongBoard.check_ImageList[i] == obj)
+            {
+                if(GameManager.Inst.GetSpawnManager.answerBoard.check_ImageList[i].mySpritRenderer.sprite.name !=
+                    obj.mySpritRenderer.sprite.name)
+                {
+                    Debug.Log("고래 뱃속으로");
+                    MoveResult();
+                }
+            }
+        }
+    }
+
+    private void MoveResult()
+    {
+        if (GameManager.Inst.GetSpawnManager.resultCount > GameManager.Inst.GetSpawnManager.resultObjetList.Count)
+            return;
+
+        SpriteRenderer sprite = null;
+
+        if (GameManager.Inst.GetSpawnManager.resultObjetList[GameManager.Inst.GetSpawnManager.resultCount]
+            .TryGetComponent<SpriteRenderer>(out sprite))
+        {
+            sprite.sprite= mySpritRenderer.sprite;
+            GameManager.Inst.GetSpawnManager.resultCount++;
+            check = true;
+
+            GameManager.Inst.GetUiManager.CallAddScore(GameManager.Inst.GetScore);
+            GameManager.Inst.GetUiManager.CallAddFindCount();
+        }
+    }
+
+
 }

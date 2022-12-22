@@ -7,11 +7,18 @@ public class GameManager : Singleton<GameManager>
     [Header("=========Get Manager========")]
     [SerializeField] private UIManager uiManager       = null;
     [SerializeField] private ClickManager clickManager = null;
+    [SerializeField] private SpawnManager spawnManager = null;
+
     [Header("GameControl Member")]
     [SerializeField] private float maxTime = 0;
+    [SerializeField] private int score = 0;
+    [SerializeField] private int totalCount = 0;
 
     public UIManager GetUiManager       { get { return uiManager; }    private set { } }
     public ClickManager GetClickManager { get { return clickManager; } private set { } }
+    public SpawnManager GetSpawnManager { get { return spawnManager; } private set { } }
+    public int GetScore { get { return score; } private set { } }
+    public int GetTotalCount { get { return totalCount; } private set { } }
 
     #region Members
 
@@ -27,6 +34,7 @@ public class GameManager : Singleton<GameManager>
     {
         Init();    
     }
+
     private void Update()
     {
         if (TimeOver) return;
@@ -34,9 +42,15 @@ public class GameManager : Singleton<GameManager>
         TimeControl();
     }
 
+    private void Init()
+    {
+        TimeOver = false;
+        CurGameTime = 0;
+    }
+
     private void TimeControl()
     {
-        CurGameTime = Time.time;
+        CurGameTime += Time.deltaTime;
         GetUiManager.SetTimerText(CurGameTime);
 
         if (CurGameTime > maxTime)
@@ -44,17 +58,6 @@ public class GameManager : Singleton<GameManager>
             TimeOver = true;
             GetUiManager.CallTimeOverUi();
         }
-    }
-
-    private void AddScore()
-    {
-
-    }
-
-    void Init()
-    {
-        TimeOver = false;
-        CurGameTime = 0;
     }
 
  

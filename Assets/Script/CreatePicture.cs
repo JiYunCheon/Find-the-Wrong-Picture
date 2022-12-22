@@ -24,6 +24,8 @@ public class CreatePicture : MonoBehaviour
     [SerializeField] private int defaltObjectCount;
 
     private List<Wromg_Image> wromg_Images;
+    [HideInInspector] public List<Wromg_Image> check_ImageList;
+
     [HideInInspector] public int[] randomIndex;
 
     private void Awake()
@@ -47,6 +49,8 @@ public class CreatePicture : MonoBehaviour
                     new Vector3((j* objectInertval_X) + objectPivot_X, (i* objectInertval_Y) +objectPivot_Y,0f);
                 obj.name = obj.name + a.ToString();
                 wromg_Images.Add(obj);
+
+                check_ImageList.Add(obj);
             }
         }
     }
@@ -73,7 +77,7 @@ public class CreatePicture : MonoBehaviour
     {
         for (int i = 0; i < randomIndex.Length; i++)
         {
-            wromg_Images[randomIndex[i]].gameObject.SetActive(false);
+            wromg_Images[randomIndex[i]].Off_Image();
             wromg_Images.Remove(wromg_Images[randomIndex[i]]);
         }
 
