@@ -5,6 +5,11 @@ using System.Runtime.ExceptionServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum Type
+{
+    Answer,
+    Wrong
+}
 public class CreatePicture : MonoBehaviour
 {
     [Header("=====Inst Size=====")]
@@ -35,19 +40,18 @@ public class CreatePicture : MonoBehaviour
         GenerateObject();
     }
 
-    int a;
-
     private void GenerateObject()
     {
         for (int i = 0; i < mapHight; i++)
         {
             for (int j = 0; j < mapWidth; j++)
             {
-                a++;
                 Wromg_Image obj = Instantiate<Wromg_Image>(defalt_obj,this.transform);
                 obj.transform.localPosition = 
                     new Vector3((j* objectInertval_X) + objectPivot_X, (i* objectInertval_Y) +objectPivot_Y,0f);
-                obj.name = obj.name + a.ToString();
+
+                obj.type = Type.Answer;
+
                 wromg_Images.Add(obj);
 
                 check_ImageList.Add(obj);
@@ -69,7 +73,6 @@ public class CreatePicture : MonoBehaviour
 
             wromg_Images.Remove(wromg_Images[select]);
         }
-
        
     }
 

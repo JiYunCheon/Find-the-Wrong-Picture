@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Wromg_Image : MonoBehaviour, Click_Interactable
 {
     [Header("========Sprite Box========")]
     [SerializeField] private Sprite[] default_Sprite;
     [SerializeField] private Sprite[] wromg_Sprite;
 
-    private SpriteRenderer mySpritRenderer = null;
+    [HideInInspector] public SpriteRenderer mySpritRenderer = null;
     private BoxCollider2D myCollider = null;
-    
+
     public bool check { get; set; }
+    [HideInInspector] public Type type = Type.Answer;
 
     private int randomIdx = 0;
 
@@ -28,6 +31,22 @@ public class Wromg_Image : MonoBehaviour, Click_Interactable
         randomIdx = Random.Range(0, default_Sprite.Length);
         mySpritRenderer.sprite = default_Sprite[randomIdx];
     }
+
+
+    public void AnswerDefaultImage()
+    {
+        randomIdx = Random.Range(0, default_Sprite.Length);
+        mySpritRenderer.sprite = default_Sprite[randomIdx];
+    }
+    public void WrongDefaultImage()
+    {
+        for (int i = 0; i < GameManager.Inst.GetSpawnManager.answerBoard.check_ImageList.Count; i++)
+        {
+            GameManager.Inst.GetSpawnManager.answerBoard.check_ImageList[i].mySpritRenderer.sprite = mySpritRenderer.sprite;
+        }
+    }
+
+
 
     public void Interact()
     {
