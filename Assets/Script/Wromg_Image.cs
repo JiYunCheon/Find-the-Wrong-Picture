@@ -2,21 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Type
+{
+    OnOcean,
+    Default
+}
 
-
+[RequireComponent(typeof(BoxCollider2D))]
 public class Wromg_Image : MonoBehaviour, Click_Interactable
 {
     [Header("========Sprite Box========")]
     [SerializeField] private Sprite[] default_Sprite;
     [SerializeField] private Sprite[] wromg_Sprite;
+    [SerializeField] private Sprite onOcean = null;
 
     [HideInInspector] public SpriteRenderer mySpritRenderer = null;
-    private BoxCollider2D myCollider = null;
 
     public bool check { get; set; }
-    [HideInInspector] public Type type = Type.Answer;
-
     private int randomIdx = 0;
+    public Type type = Type.Default;
 
     [HideInInspector] public CreatePicture answerPiture = null;
 
@@ -32,21 +36,10 @@ public class Wromg_Image : MonoBehaviour, Click_Interactable
         mySpritRenderer.sprite = default_Sprite[randomIdx];
     }
 
-
-    public void AnswerDefaultImage()
+    public void ChangeOnOcean()
     {
-        randomIdx = Random.Range(0, default_Sprite.Length);
-        mySpritRenderer.sprite = default_Sprite[randomIdx];
+        mySpritRenderer.sprite = onOcean;
     }
-    public void WrongDefaultImage()
-    {
-        for (int i = 0; i < GameManager.Inst.GetSpawnManager.answerBoard.check_ImageList.Count; i++)
-        {
-            GameManager.Inst.GetSpawnManager.answerBoard.check_ImageList[i].mySpritRenderer.sprite = mySpritRenderer.sprite;
-        }
-    }
-
-
 
     public void Interact()
     {
@@ -55,7 +48,6 @@ public class Wromg_Image : MonoBehaviour, Click_Interactable
 
     public void On_Change_Image()
     {
-        myCollider = gameObject.AddComponent(typeof(BoxCollider2D))as BoxCollider2D;
 
         randomIdx = Random.Range(0, wromg_Sprite.Length);
         mySpritRenderer.sprite = wromg_Sprite[randomIdx];
@@ -80,7 +72,7 @@ public class Wromg_Image : MonoBehaviour, Click_Interactable
                     obj.mySpritRenderer.sprite.name)
                 {
                     Debug.Log("고래 뱃속으로");
-                    MoveResult();
+                    FindWrongObject();
                 }
             }
         }
@@ -104,6 +96,27 @@ public class Wromg_Image : MonoBehaviour, Click_Interactable
             GameManager.Inst.GetUiManager.CallAddFindCount();
         }
     }
+
+    private void FindWrongObject()
+    {
+        if (GameManager.Inst.GetSpawnManager.resultCount > GameManager.Inst.GetSpawnManager.resultObjetList.Count)
+            return;
+
+        SpriteRenderer sprite = null;
+
+        if (GameManager.Inst.GetSpawnManager.resultObjetList[GameManager.Inst.GetSpawnManager.resultCount]
+            .TryGetComponent<SpriteRenderer>(out sprite))
+        {
+            sprite.sprite = null;
+            GameManager.Inst.GetSpawnManager.resultCount++;
+            check = true;
+
+            GameManager.Inst.GetUiManager.CallAddScore(GameManager.Inst.GetScore);
+            GameManager.Inst.GetUiManager.CallAddFindCount();
+        }
+    }
+
+
 
 
 }

@@ -5,11 +5,6 @@ using System.Runtime.ExceptionServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum Type
-{
-    Answer,
-    Wrong
-}
 public class CreatePicture : MonoBehaviour
 {
     [Header("=====Inst Size=====")]
@@ -33,6 +28,8 @@ public class CreatePicture : MonoBehaviour
 
     [HideInInspector] public int[] randomIndex;
 
+    Wromg_Image onOceanObject = null;
+
     private void Awake()
     {
         wromg_Images = new List<Wromg_Image>();
@@ -42,21 +39,28 @@ public class CreatePicture : MonoBehaviour
 
     private void GenerateObject()
     {
+        Wromg_Image obj = null;
+
         for (int i = 0; i < mapHight; i++)
         {
             for (int j = 0; j < mapWidth; j++)
             {
-                Wromg_Image obj = Instantiate<Wromg_Image>(defalt_obj,this.transform);
+                obj = Instantiate<Wromg_Image>(defalt_obj,this.transform);
                 obj.transform.localPosition = 
                     new Vector3((j* objectInertval_X) + objectPivot_X, (i* objectInertval_Y) +objectPivot_Y,-1f);
-
-                obj.type = Type.Answer;
 
                 wromg_Images.Add(obj);
 
                 check_ImageList.Add(obj);
             }
         }
+
+        onOceanObject = Instantiate<Wromg_Image>(defalt_obj, this.transform);
+        onOceanObject.name = "wawe";
+        onOceanObject.transform.localPosition =
+                    new Vector3(-2f, -2.5f, -1f);
+        onOceanObject.ChangeOnOcean();
+        check_ImageList.Add(onOceanObject);
     }
 
     public void CallChangeType()
@@ -95,6 +99,8 @@ public class CreatePicture : MonoBehaviour
 
             wromg_Images.Remove(wromg_Images[select]);
         }
+        onOceanObject.On_Change_Image();
+
     }
 
 }
