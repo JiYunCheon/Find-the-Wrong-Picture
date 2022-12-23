@@ -48,7 +48,7 @@ public class CreatePicture : MonoBehaviour
             {
                 Wromg_Image obj = Instantiate<Wromg_Image>(defalt_obj,this.transform);
                 obj.transform.localPosition = 
-                    new Vector3((j* objectInertval_X) + objectPivot_X, (i* objectInertval_Y) +objectPivot_Y,0f);
+                    new Vector3((j* objectInertval_X) + objectPivot_X, (i* objectInertval_Y) +objectPivot_Y,-1f);
 
                 obj.type = Type.Answer;
 
