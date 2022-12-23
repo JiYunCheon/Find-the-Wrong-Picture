@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private UIManager uiManager       = null;
     [SerializeField] private ClickManager clickManager = null;
     [SerializeField] private SpawnManager spawnManager = null;
+    [SerializeField] private SelectLevel selectLevelManager = null;
 
     [Header("GameControl Member")]
     [SerializeField] private float maxTime = 0;
@@ -22,7 +23,9 @@ public class GameManager : Singleton<GameManager>
 
     #region Members
 
-    private bool TimeOver = false;
+    public int findCount = 0;
+
+    private bool gameClear = false;
     public bool GameClear { get; set; } = false;
     public int Difficulty { get; set; } = 0;
     public int Score      { get; set; } = 0;
@@ -37,14 +40,14 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if (TimeOver) return;
+        if (gameClear) return;
 
         TimeControl();
     }
 
     private void Init()
     {
-        TimeOver = false;
+        gameClear = false;
         CurGameTime = 0;
     }
 
@@ -53,12 +56,20 @@ public class GameManager : Singleton<GameManager>
         CurGameTime += Time.deltaTime;
         GetUiManager.SetTimerText(CurGameTime);
 
+        if (findCount >= 5)
+        {
+            GameClear_SceneCheng();
+        }
+
         if (CurGameTime > maxTime)
         {
-            TimeOver = true;
+            gameClear = true;
             GetUiManager.CallTimeOverUi();
         }
     }
 
- 
+    private void GameClear_SceneCheng()
+    {
+        selectLevelManager.GameClear();
+    }
 }

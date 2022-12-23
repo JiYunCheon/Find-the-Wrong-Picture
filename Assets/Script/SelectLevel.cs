@@ -33,4 +33,9 @@ public class SelectLevel : MonoBehaviour
         //GameDatas.Inst.difficulty = DIFFICULTY.MASTER;
         //SceneManager.LoadScene("2.GameScene");
     }
+
+    public void GameClear()
+    {
+        SceneManager.LoadScene("3.EndScenes", LoadSceneMode.Additive);
+    }
 }

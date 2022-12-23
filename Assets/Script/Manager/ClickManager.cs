@@ -16,16 +16,23 @@ public class ClickManager : MonoBehaviour
     private Vector3 mousePos;
     private int layerMask;
 
+    private float click_Time = 0f;
+
     private void Start()
     {
         maxDistance=float.MaxValue;
         cam = Camera.main;
         layerMask = 1 << LayerMask.NameToLayer("Interactable");
+        click_Time = 10f;
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        click_Time += Time.deltaTime;
+
+        if (Input.GetMouseButtonDown(0) && click_Time >= 0.5f)
         {
+            SoundManager.Inst.PlaySFX("ClickSound");
+
             mousePos = Input.mousePosition;
             mousePos = cam.ScreenToWorldPoint(mousePos);
 
@@ -55,6 +62,7 @@ public class ClickManager : MonoBehaviour
                     Destroy(test, 1f);
                 }    
             }
+            click_Time = 0f;
         }
 
 

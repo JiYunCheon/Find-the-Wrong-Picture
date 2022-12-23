@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
     public void CallAddFindCount()
     {
         findCount++;
+        GameManager.Inst.findCount = findCount;
         findCountText.text = findCount + "/" + GameManager.Inst.GetTotalCount;
     }
-
 }
