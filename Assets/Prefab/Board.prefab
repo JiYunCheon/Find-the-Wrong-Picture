@@ -106,7 +106,7 @@ MonoBehaviour:
   objectPivot_X: -25
   objectPivot_Y: -20
   ativeObjectCount: 15
-  defaltObjectCount: 10
+  defaltObjectCount: 11
   check_ImageList: []
   randomIndex: 
 --- !u!61 &8486899534080856959
