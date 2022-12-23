@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 866684621950910957}
   - component: {fileID: 866684621950910956}
   - component: {fileID: 1990852214}
-  - component: {fileID: 2473981277696469545}
+  - component: {fileID: 8486899534080856959}
   m_Layer: 9
   m_Name: Board
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866684621950910947}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.05, y: -0.5, z: 1}
+  m_LocalPosition: {x: -1.05, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e2c0fbf15bb69d14f80ea7bf96353639, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4dfb8f5657662754a960f97759a66afe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,17 +98,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c3d3375af3fa94ab0820fa0927adfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapWidth: 4
-  mapHight: 3
+  mapWidth: 8
+  mapHight: 4
   defalt_obj: {fileID: 2534639466564320048, guid: 2270e739a479a5f4cb2260bb38c69e5b, type: 3}
-  objectInertval_X: 0.5
-  objectInertval_Y: 0.3
-  objectPivot_X: -0.75
-  objectPivot_Y: -0.4
-  ativeObjectCount: 8
-  defaltObjectCount: 3
+  objectInertval_X: 7
+  objectInertval_Y: 4
+  objectPivot_X: -25
+  objectPivot_Y: -20
+  ativeObjectCount: 15
+  defaltObjectCount: 10
+  check_ImageList: []
   randomIndex: 
---- !u!61 &2473981277696469545
+--- !u!61 &8486899534080856959
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,12 +126,12 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.92, y: 1.08}
+    oldSize: {x: 70, y: 50.004883}
     newSize: {x: 1.92, y: 1.08}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.92, y: 1.08}
+  m_Size: {x: 70, y: 50.004883}
   m_EdgeRadius: 0

@@ -7,6 +7,7 @@ public class SpawnManager : MonoBehaviour
     //여기로 변수 다모으기 
     [SerializeField] private int mapWidth;
     [SerializeField] private int mapHight;
+    [SerializeField] private Transform ResultWindow;
     [SerializeField] private GameObject resultObjet = null;
 
     [HideInInspector] public List<GameObject> resultObjetList = null;
@@ -31,7 +32,7 @@ public class SpawnManager : MonoBehaviour
     private void GenerateAnswerBoard()
     {
         CreatePicture obj = Instantiate<CreatePicture>(board);
-        obj.transform.position = new Vector3(-1.05f, -0.5f, 1);
+        obj.transform.position = new Vector3(-35.5f, -16f, 0);
         obj.CallChangeType();
         randomIndex = obj.randomIndex;
 
@@ -42,11 +43,17 @@ public class SpawnManager : MonoBehaviour
     private void GenerateWrongBoard()
     {
         CreatePicture obj = Instantiate<CreatePicture>(board);
-        obj.transform.position = new Vector3(1.05f, -0.5f, 1);
-        obj.GenerateWrongObject(randomIndex);
-
+        obj.transform.position = new Vector3(35.5f, -16f, 0);
         wrongBoard = obj;
+
+        for (int i = 0; i < answerBoard.check_ImageList.Count; i++)
+        {
+            wrongBoard.check_ImageList[i].mySpritRenderer.sprite = answerBoard.check_ImageList[i].mySpritRenderer.sprite;
+        }
+
+        obj.GenerateWrongObject(randomIndex);
     }
+
 
     //결과 오브젝트 생성
     private void GenerateResultObject()
@@ -55,10 +62,10 @@ public class SpawnManager : MonoBehaviour
         {
             for (int j = 0; j < mapWidth; j++)
             {
-                GameObject obj = Instantiate<GameObject>(resultObjet, new Vector3(0,0.62f,0),Quaternion.identity);
+                GameObject obj = Instantiate<GameObject>(resultObjet,ResultWindow);
                 obj.transform.localPosition =
-                    new Vector3((j * 0.5f) + -0.75f, (i * 0.3f) + 0.4f, 0f);
-
+                    new Vector3((j * 2f) + -3.5f, (i*3f)-6f, 0f);
+                
                 resultObjetList.Add(obj);
             }
         }

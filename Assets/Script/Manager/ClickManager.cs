@@ -18,6 +18,7 @@ public class ClickManager : MonoBehaviour
 
     private void Start()
     {
+        maxDistance=float.MaxValue;
         cam = Camera.main;
         layerMask = 1 << LayerMask.NameToLayer("Interactable");
     }
