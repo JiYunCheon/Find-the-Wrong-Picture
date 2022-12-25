@@ -11,10 +11,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverUi = null;
     [Header("")]
     [SerializeField] private TextMeshProUGUI timerText = null;
-    [SerializeField] private TextMeshProUGUI scoreText = null;
     [SerializeField] private TextMeshProUGUI findCountText = null;
 
-    public TextMeshProUGUI GetScoreText { get { return scoreText; } private set { } }
+    //public TextMeshProUGUI GetScoreText { get { return scoreText; } private set { } }
 
     public GameObject GameOverUi { get { return gameOverUi; } private set { } }
 
@@ -23,7 +22,8 @@ public class UIManager : MonoBehaviour
 
     public void SetTimerText(float curTime)
     {
-        timerText.text = Mathf.RoundToInt(curTime).ToString();
+        //timerText.text = Mathf.RoundToInt(curTime).ToString("F1");
+        timerText.text = curTime.ToString("F1");
     }
 
     public void CallTimeOverUi(bool active = true)
@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
     {
         curScore += score;
 
-        GetScoreText.text = curScore.ToString();
+        //GetScoreText.text = curScore.ToString();
     }
 
     public void CallAddFindCount()
@@ -43,5 +43,11 @@ public class UIManager : MonoBehaviour
         findCount++;
         GameManager.Inst.findCount = findCount;
         findCountText.text = findCount + "/" + GameManager.Inst.GetTotalCount;
+    }
+    
+    public void Off_UI()
+    {
+        timerText.gameObject.SetActive(false);
+        findCountText.gameObject.SetActive(false);
     }
 }

@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
     [Header("GameControl Member")]
     [SerializeField] private float maxTime = 0;
     [SerializeField] private int score = 0;
+    [SerializeField] private int curScore = 0;
     [SerializeField] private int totalCount = 0;
 
     public UIManager GetUiManager       { get { return uiManager; }    private set { } }
@@ -40,9 +41,10 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if (gameClear) return;
+        if (!gameClear)
+            TimeControl();
 
-        TimeControl();
+        Debug.Log("score : " + score);
     }
 
     private void Init()
@@ -58,18 +60,19 @@ public class GameManager : Singleton<GameManager>
 
         if (findCount >= 5)
         {
-            GameClear_SceneCheng();
-        }
-
-        if (CurGameTime > maxTime)
-        {
             gameClear = true;
-            GetUiManager.CallTimeOverUi();
+            GameClear_SceneCheng();
         }
     }
 
     private void GameClear_SceneCheng()
     {
         selectLevelManager.GameClear();
+        uiManager.Off_UI();
+    }
+
+    private void GameScore()
+    {
+
     }
 }
