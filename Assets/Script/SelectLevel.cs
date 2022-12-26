@@ -17,7 +17,7 @@ public class SelectLevel : MonoBehaviour
     public void Click_Normal()
     {
         Debug.Log("Normal");
-        SceneManager.LoadScene("Find_the_Wrong_Picture");
+        SceneManager.LoadScene("Find_the_Wrong_Picture _1");
     }
 
     public void Click_Hard()

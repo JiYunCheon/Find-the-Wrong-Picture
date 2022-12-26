@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/1.StartSCene.unity
     guid: fbd595d433c047d4eb97a797f890c435
   - enabled: 1
-    path: Assets/Scenes/Find_the_Wrong_Picture.unity
-    guid: 2ab5d138ace4caa46bf1489f2ac5e369
+    path: Assets/Scenes/Find_the_Wrong_Picture _1.unity
+    guid: 3bca0a7e4812c3745baece8cc7e5ae16
   - enabled: 1
     path: Assets/Scenes/3.EndScenes.unity
     guid: 609aec8b3453bce4ea8111aa4147b5fa
