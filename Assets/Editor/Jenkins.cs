@@ -18,7 +18,7 @@ public class Jenkins
         //    Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/Build/");
         //}
 
-        string target_filename = "Build/" + APP_NAME +PlayerSettings.Android.bundleVersionCode+ "*.apk";
+        string target_filename = "Build/" + APP_NAME +PlayerSettings.Android.bundleVersionCode+ ".apk";
         SCENES = FindEnabledEditorScenes();
 
         GenericBuild(SCENES, target_filename, BuildTarget.Android, BuildOptions.None);
