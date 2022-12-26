@@ -92,7 +92,7 @@ public class Wromg_Image : MonoBehaviour, Click_Interactable
             GameManager.Inst.GetSpawnManager.resultCount++;
             check = true;
 
-            GameManager.Inst.GetUiManager.CallAddScore(GameManager.Inst.GetScore);
+            GameManager.Inst.Score_UpDate(); ;
             GameManager.Inst.GetUiManager.CallAddFindCount();
         }
     }
@@ -110,8 +110,9 @@ public class Wromg_Image : MonoBehaviour, Click_Interactable
             sprite.sprite = null;
             GameManager.Inst.GetSpawnManager.resultCount++;
             check = true;
+            GameManager.Inst.Score_UpDate(); ;
 
-            GameManager.Inst.GetUiManager.CallAddScore(GameManager.Inst.GetScore);
+            //GameManager.Inst.GetUiManager.CallAddScore(GameManager.Inst.GetScore);
             GameManager.Inst.GetUiManager.CallAddFindCount();
         }
     }

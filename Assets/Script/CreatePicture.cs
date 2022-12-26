@@ -77,7 +77,6 @@ public class CreatePicture : MonoBehaviour
 
             wromg_Images.Remove(wromg_Images[select]);
         }
-       
     }
 
     public void GenerateWrongObject(int[] randomIndex)

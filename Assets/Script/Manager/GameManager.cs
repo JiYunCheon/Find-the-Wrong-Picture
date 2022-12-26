@@ -12,7 +12,9 @@ public class GameManager : Singleton<GameManager>
 
     [Header("GameControl Member")]
     [SerializeField] private float maxTime = 0;
+    [SerializeField] private float curTime = 0;
     [SerializeField] private int score = 0;
+    [SerializeField] private int curScore = 0;
     [SerializeField] private int totalCount = 0;
 
     public UIManager GetUiManager       { get { return uiManager; }    private set { } }
@@ -20,6 +22,8 @@ public class GameManager : Singleton<GameManager>
     public SpawnManager GetSpawnManager { get { return spawnManager; } private set { } }
     public int GetScore { get { return score; } private set { } }
     public int GetTotalCount { get { return totalCount; } private set { } }
+    public int GetCurScore { get { return curScore; } private set { } }
+    public float GetCurTime { get { return curTime; } private set { } }
 
     #region Members
 
@@ -58,18 +62,20 @@ public class GameManager : Singleton<GameManager>
 
         if (findCount >= 5)
         {
+            gameClear = true;
             GameClear_SceneCheng();
         }
-
-        if (CurGameTime > maxTime)
-        {
-            gameClear = true;
-            GetUiManager.CallTimeOverUi();
-        }
+    }
+    public void Score_UpDate()
+    {
+        curScore += score;
     }
 
     private void GameClear_SceneCheng()
     {
+        curTime = CurGameTime;
+        uiManager.Off_Ui();
         selectLevelManager.GameClear();
     }
+
 }

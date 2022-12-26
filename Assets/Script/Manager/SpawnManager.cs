@@ -58,7 +58,7 @@ public class SpawnManager : MonoBehaviour
     //결과 오브젝트 생성
     private void GenerateResultObject()
     {
-        for (int i = 0; i < GameManager.Inst.GetTotalCount+1; i++)
+        for (int i = 0; i < GameManager.Inst.GetTotalCount; i++)
         {
             GameObject obj = Instantiate<GameObject>(resultObjet, ResultWindow);
             obj.transform.localPosition =
