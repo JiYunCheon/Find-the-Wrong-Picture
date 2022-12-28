@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private ClickManager clickManager = null;
     [SerializeField] private SpawnManager spawnManager = null;
     [SerializeField] private SelectLevel selectLevelManager = null;
+    private DataBaseServer dbServer = null;
 
     [Header("GameControl Member")]
     [SerializeField] private float maxTime = 0;
@@ -74,6 +75,8 @@ public class GameManager : Singleton<GameManager>
     private void GameClear_SceneCheng()
     {
         curTime = CurGameTime;
+        dbServer = FindObjectOfType<DataBaseServer>();
+        dbServer.FindPictureSaveScore(curScore);
         uiManager.Off_Ui();
         selectLevelManager.GameClear();
     }

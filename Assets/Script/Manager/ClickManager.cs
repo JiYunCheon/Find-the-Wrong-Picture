@@ -27,42 +27,48 @@ public class ClickManager : MonoBehaviour
     }
     private void Update()
     {
-        click_Time += Time.deltaTime;
-
-        if (Input.GetMouseButtonDown(0) && click_Time >= 0.5f)
+        if (Input.touchCount > 0)
         {
-            SoundManager.Inst.PlaySFX("ClickSound");
-
-            mousePos = Input.mousePosition;
-            mousePos = cam.ScreenToWorldPoint(mousePos);
-
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, transform.forward, maxDistance, layerMask);
-            Debug.DrawRay(mousePos, transform.forward * 10, Color.red, 0.3f);
-
-            if (hit.collider!=null)
+            for (int i = 0; i < Input.touchCount; i++)
             {
-                Debug.Log(hit.transform.name);
+                Touch touch = Input.GetTouch(i);
+                if (touch.phase == TouchPhase.Began)
+                {
+                    SoundManager.Inst.PlaySFX("ClickSound");
 
-                if (hit.transform.TryGetComponent<Click_Interactable>(out Click_Interactable obj))
-                {
-                    Debug.Log("들어간놈 찾았다");
-                    if (!hit.transform.GetComponent<Wromg_Image>().check)
+                    mousePos = cam.ScreenToWorldPoint(touch.position);
+
+                    RaycastHit2D[] hit = new RaycastHit2D[10];
+
+                    hit[i] = Physics2D.Raycast(mousePos, transform.forward, maxDistance, layerMask);
+                    Debug.DrawRay(mousePos, transform.forward * 10, Color.red, 0.3f);
+
+                    if (hit[i].collider!=null)
                     {
-                        CheckInst(okObj, hit.transform.position);
+                        Debug.Log(hit[i].transform.name);
+
+                        if (hit[i].transform.TryGetComponent<Click_Interactable>(out Click_Interactable obj))
+                        {
+                            Debug.Log("들어간놈 찾았다");
+                            if (!hit[i].transform.GetComponent<Wromg_Image>().check)
+                            {
+                                Debug.Log("transform : " + hit[i].transform.position);
+                                CheckInst(okObj, hit[i].transform.position);
+                            }
+                            obj.Interact();
+                        }
+                        else if (hit[i].transform.gameObject.name == "BackGround" || hit[i].transform.gameObject.name == "Image_Center")
+                        {
+                            Debug.Log("그림이 없어요");
+                        }
+                        else
+                        {
+                            GameObject test = CheckInst(errorObj, mousePos);
+                            Destroy(test, 1f);
+                        }    
                     }
-                    obj.Interact();
                 }
-                else if(hit.transform.gameObject.name == "BackGround" || hit.transform.gameObject.name == "Image_Center")
-                {
-                    Debug.Log("그림이 없어요");
-                }
-                else
-                {
-                    GameObject test = CheckInst(errorObj, mousePos);
-                    Destroy(test, 1f);
-                }    
             }
-            click_Time = 0f;
         }
 
 
